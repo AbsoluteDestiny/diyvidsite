@@ -23,7 +23,8 @@ collections:
           - {label: "Favicon", name: "favicon", widget: "image", required: false}
           - {label: "Facebook App ID", name: "fb_appid", widget: "string"}
           - {label: "Twitter Handle", name: "twitter_handle", widget: "string"}
-          - {label: "Vid CDN", hint: "For direct video streams and downloads", name: "twitter_handle", widget: "string", required: false}
+          - {label: "Vid CDN", hint: "For direct video streams and downloads", name: "vid_cdn", widget: "string", required: false}
+          - {label: "CDN Proxy folder", hint: "All links to this folder on your site will pull from the cdn", default: "/cdn/", name: "cdn_folder", widget: "string", required: false}
   - name: "vids" # Used in routes, e.g., /admin/collections/blog
     label: "Vids" # Used in the UI
     label_singular: "Vid"
@@ -39,8 +40,8 @@ collections:
         name: "fandoms"
         widget: "list"
         required: false
-        field:
-          - {label: "Fandom", name: fandom, widget: "string"}
+        fields:
+          - {label: "Fandom", name: "fandom", widget: "string"}
       - {label: "Song Title", name: "song", widget: "string", required: true}
       - {label: "Song Artist", name: "artist", widget: "string", required: true}
       - {label: "Thumbnail", name: "thumbnail", widget: "image", default: "/static/uploads/vid_thumbnail.jpg", required: true}
@@ -50,8 +51,8 @@ collections:
       - label: "Tags"
         name: "tags"
         widget: "list"
-        required: true
-        field:
+        required: false
+        fields:
           - {label: "Tag", name: tag, widget: "string"}
       - {label: "Collaborators", name: "collaborators", widget: "list", required: false}
       - {label: "Gift for", name: "recipient", widget: "string", required: false}
