@@ -1,0 +1,266 @@
+backend:
+  name: github
+  repo: AbsoluteDestiny/diyvidsite # Path to your Github repository
+  branch: master # Branch to update
+publish_mode: editorial_workflow
+media_folder: "static/uploads"
+public_folder: "/static/uploads"
+display_url: https://your-site.com
+collections:
+  - name: "config" # Used in routes, e.g., /admin/collections/blog
+    editor:
+      preview: false
+    label: "Settings" # Used in the UI
+    files:
+      - label: "Site Config"
+        name: "sitedata"
+        file: "admin/sitedata.yml" # The path to the folder where the documents are stored
+        fields: # The fields for each document, usually in front matter
+          - {label: "Site Title", name: "title", widget: "string", required: true}
+          - {label: "Site Description", name: "description", widget: "string", required: true}
+          - {label: "Site Author", name: "author", widget: "string", required: true}
+          - {label: "URL", name: "url", widget: "string", required: true}
+          - {label: "Favicon", name: "favicon", widget: "image", required: false}
+          - {label: "Facebook App ID", name: "fb_appid", widget: "string"}
+          - {label: "Twitter Handle", name: "twitter_handle", widget: "string"}
+          - {label: "Vid CDN", hint: "For direct video streams and downloads", name: "twitter_handle", widget: "string", required: false}
+  - name: "vids" # Used in routes, e.g., /admin/collections/blog
+    label: "Vids" # Used in the UI
+    label_singular: "Vid"
+    folder: "vids" # The path to the folder where the documents are stored
+    create: true # Allow users to create new documents in this collection
+    slug: "{{year}}-{{month}}-{{slug}}" # Filename template
+    extension: "md"
+    format: "yaml-frontmatter"
+    fields: # The fields for each vid
+      - {label: "Vid Title", name: "title", widget: "string", required: true}
+      - {label: "Vid Creation/Publish Date", name: "date", widget: "date", required: true}
+      - {label: "Fandoms (separate multiple with a comma)", name: "footage", widget: "list", required: true}
+      - {label: "Song Title", name: "song", widget: "string", required: true}
+      - {label: "Song Artist", name: "artist", widget: "string", required: true}
+      - {label: "Thumbnail", name: "thumbnail", widget: "image", default: "/static/uploads/vid_thumbnail.jpg", required: true}
+      - {label: "Social Media Image", name: "social_thumbnail", widget: "image", required: false}
+      - {label: "Description", name: "body", widget: "markdown"}
+      - {label: "Lyrics", name: "lyrics", widget: "markdown"}
+      - {label: "Tags", name: "tags", widget: "list", required: false}
+      - {label: "Collaborators", name: "collaborators", widget: "list", required: false}
+      - {label: "Gift for", name: "recipient", widget: "string", required: false}
+      - {label: "AO3 works ID", name: "recipient", widget: "number", required: false}
+      - {label: "More Info URL", name: "recipient", widget: "number", required: false}
+      - label: "Download Links"
+        name: "downloads"
+        widget: "object"
+        fields:
+          - {label: "Text", name: "label", widget: "string"}
+          - {label: "Url", name: "url", widget: "string"}
+      - label: "Video Stream"
+        name: "video_streams"
+        widget: "object"
+        fields:
+          - {label: "Stream Url", name: "url", widget: "string"}
+          - label: "Stream Type"
+            name: "stream_type"
+            widget: "select"
+            options: ["mp4", "webm","vimeo", "youtube", "hls", "dash"]
+          - {label: "Password (if vimeo)", name: "password", widget: "string"}
+      - label: "Video Tracks"
+        hint: "Subtitles, captions, chapters etc."
+        name: "tracks"
+        widget: "object"
+        fields:
+          - {label: "VTT", name: "vtt", widget: "file"}
+          - label: "Track Kind"
+            hint: "see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/track for details"
+            name: "kind"
+            widget: "list"
+            default: "subtitles"
+            required: true
+            options: ["subtitles", "captions", "descriptions", "chapters", "metadata"]
+          - label: "Language"
+            name: "lang"
+            widget: "list"
+            default: "en"
+            required: true
+            options:
+              - {value: "aa", label: "Afar (Afaraf)"}
+              - {value: "ab", label: "Abkhaz (аҧсуа)"}
+              - {value: "ae", label: "Avestan (avesta)"}
+              - {value: "af", label: "Afrikaans (Afrikaans)"}
+              - {value: "ak", label: "Akan (Akan)"}
+              - {value: "am", label: "Amharic (አማርኛ)"}
+              - {value: "an", label: "Aragonese (Aragonés)"}
+              - {value: "ar", label: "Arabic (العربية)"}
+              - {value: "as", label: "Assamese (অসমীয়া)"}
+              - {value: "av", label: "Avaric (авар мацӀ магӀарул мацӀ)"}
+              - {value: "ay", label: "Aymara (aymar aru)"}
+              - {value: "az", label: "Azerbaijani (azərbaycan dili)"}
+              - {value: "ba", label: "Bashkir (башҡорт теле)"}
+              - {value: "be", label: "Belarusian (Беларуская)"}
+              - {value: "bg", label: "Bulgarian (български език)"}
+              - {value: "bh", label: "Bihari (भोजपुरी)"}
+              - {value: "bi", label: "Bislama (Bislama)"}
+              - {value: "bm", label: "Bambara (bamanankan)"}
+              - {value: "bn", label: "Bengali (বাংলা)"}
+              - {value: "bo", label: "Tibetan Standard Tibetan Central (བོད་ཡིག)"}
+              - {value: "br", label: "Breton (brezhoneg)"}
+              - {value: "bs", label: "Bosnian (bosanski jezik)"}
+              - {value: "ca", label: "Catalan; Valencian (Català)"}
+              - {value: "ce", label: "Chechen (нохчийн мотт)"}
+              - {value: "ch", label: "Chamorro (Chamoru)"}
+              - {value: "co", label: "Corsican (corsu lingua corsa)"}
+              - {value: "cr", label: "Cree (ᓀᐦᐃᔭᐍᐏᐣ)"}
+              - {value: "cs", label: "Czech (česky čeština)"}
+              - {value: "cu", label: "Old Church Slavonic Church Slavic Church Slavonic Old Bulgarian Old Slavonic (ѩзыкъ словѣньскъ)"}
+              - {value: "cv", label: "Chuvash (чӑваш чӗлхи)"}
+              - {value: "cy", label: "Welsh (Cymraeg)"}
+              - {value: "da", label: "Danish (dansk)"}
+              - {value: "de", label: "German (Deutsch)"}
+              - {value: "dv", label: "Divehi; Dhivehi; Maldivian; (ދިވެހި)"}
+              - {value: "ee", label: "Ewe (Eʋegbe)"}
+              - {value: "el", label: "Greek Modern (Ελληνικά)"}
+              - {value: "en", label: "English"}
+              - {value: "eo", label: "Esperanto (Esperanto)"}
+              - {value: "es", label: "Spanish; Castilian (español castellano)"}
+              - {value: "et", label: "Estonian (eesti eesti keel)"}
+              - {value: "eu", label: "Basque (euskara euskera)"}
+              - {value: "fa", label: "Persian (فارسی)"}
+              - {value: "ff", label: "Fula; Fulah; Pulaar; Pular (Fulfulde Pulaar Pular)"}
+              - {value: "fi", label: "Finnish (suomi suomen kieli)"}
+              - {value: "fj", label: "Fijian (vosa Vakaviti)"}
+              - {value: "fo", label: "Faroese (føroyskt)"}
+              - {value: "fr", label: "French (français langue française)"}
+              - {value: "fy", label: "Western Frisian (Frysk)"}
+              - {value: "ga", label: "Irish (Gaeilge)"}
+              - {value: "gd", label: "Scottish Gaelic; Gaelic (Gàidhlig)"}
+              - {value: "gl", label: "Galician (Galego)"}
+              - {value: "gn", label: "Guaraní (Avañeẽ)"}
+              - {value: "gu", label: "Gujarati (ગુજરાતી)"}
+              - {value: "gv", label: "Manx (Gaelg Gailck)"}
+              - {value: "ha", label: "Hausa (Hausa هَوُسَ)"}
+              - {value: "he", label: "Hebrew (modern) (עברית)"}
+              - {value: "hi", label: "Hindi (हिन्दी हिंदी)"}
+              - {value: "ho", label: "Hiri Motu (Hiri Motu)"}
+              - {value: "hr", label: "Croatian (hrvatski)"}
+              - {value: "ht", label: "Haitian; Haitian Creole (Kreyòl ayisyen)"}
+              - {value: "hu", label: "Hungarian (Magyar)"}
+              - {value: "hy", label: "Armenian (Հայերեն)"}
+              - {value: "hz", label: "Herero (Otjiherero)"}
+              - {value: "ia", label: "Interlingua (Interlingua)"}
+              - {value: "id", label: "Indonesian (Bahasa Indonesia)"}
+              - {value: "ie", label: "Interlingue (Originally called Occidental; then Interlingue after WWII)"}
+              - {value: "ig", label: "Igbo (Asụsụ Igbo)"}
+              - {value: "ii", label: "Nuosu (ꆈꌠ꒿ Nuosuhxop)"}
+              - {value: "ik", label: "Inupiaq (Iñupiaq Iñupiatun)"}
+              - {value: "io", label: "Ido (Ido)"}
+              - {value: "is", label: "Icelandic (Íslenska)"}
+              - {value: "it", label: "Italian (Italiano)"}
+              - {value: "iu", label: "Inuktitut (ᐃᓄᒃᑎᑐᑦ)"}
+              - {value: "ja", label: "Japanese (日本語 (にほんご／にっぽんご))"}
+              - {value: "jv", label: "Javanese (basa Jawa)"}
+              - {value: "ka", label: "Georgian (ქართული)"}
+              - {value: "kg", label: "Kongo (KiKongo)"}
+              - {value: "ki", label: "Kikuyu Gikuyu (Gĩkũyũ)"}
+              - {value: "kj", label: "Kwanyama Kuanyama (Kuanyama)"}
+              - {value: "kk", label: "Kazakh (Қазақ тілі)"}
+              - {value: "kl", label: "Kalaallisut Greenlandic (kalaallisut kalaallit oqaasii)"}
+              - {value: "km", label: "Khmer (ភាសាខ្មែរ)"}
+              - {value: "kn", label: "Kannada (ಕನ್ನಡ)"}
+              - {value: "ko", label: "Korean (한국어 (韓國語) 조선말 (朝鮮語))"}
+              - {value: "kr", label: "Kanuri (Kanuri)"}
+              - {value: "ks", label: "Kashmiri (कश्मीरी كشميري‎)"}
+              - {value: "ku", label: "Kurdish (Kurdî كوردی‎)"}
+              - {value: "kv", label: "Komi (коми кыв)"}
+              - {value: "kw", label: "Cornish (Kernewek)"}
+              - {value: "ky", label: "Kirghiz Kyrgyz (кыргыз тили)"}
+              - {value: "la", label: "Latin (latine lingua latina)"}
+              - {value: "lb", label: "Luxembourgish Letzeburgesch (Lëtzebuergesch)"}
+              - {value: "lg", label: "Luganda (Luganda)"}
+              - {value: "li", label: "Limburgish Limburgan Limburger (Limburgs)"}
+              - {value: "ln", label: "Lingala (Lingála)"}
+              - {value: "lo", label: "Lao (ພາສາລາວ)"}
+              - {value: "lt", label: "Lithuanian (lietuvių kalba)"}
+              - {value: "lu", label: "Luba-Katanga"}
+              - {value: "lv", label: "Latvian (latviešu valoda)"}
+              - {value: "mg", label: "Malagasy (Malagasy fiteny)"}
+              - {value: "mh", label: "Marshallese (Kajin M̧ajeļ)"}
+              - {value: "mi", label: "Māori (te reo Māori)"}
+              - {value: "mk", label: "Macedonian (македонски јазик)"}
+              - {value: "ml", label: "Malayalam (മലയാളം)"}
+              - {value: "mn", label: "Mongolian (монгол)"}
+              - {value: "mr", label: "Marathi (Marāṭhī) (मराठी)"}
+              - {value: "ms", label: "Malay (bahasa Melayu بهاس ملايو‎)"}
+              - {value: "mt", label: "Maltese (Malti)"}
+              - {value: "my", label: "Burmese (ဗမာစာ)"}
+              - {value: "na", label: "Nauru (Ekakairũ Naoero)"}
+              - {value: "nb", label: "Norwegian Bokmål (Norsk bokmål)"}
+              - {value: "nd", label: "North Ndebele (isiNdebele)"}
+              - {value: "ne", label: "Nepali (नेपाली)"}
+              - {value: "ng", label: "Ndonga (Owambo)"}
+              - {value: "nl", label: "Dutch (Nederlands Vlaams)"}
+              - {value: "nn", label: "Norwegian Nynorsk (Norsk nynorsk)"}
+              - {value: "no", label: "Norwegian (Norsk)"}
+              - {value: "nr", label: "South Ndebele (isiNdebele)"}
+              - {value: "nv", label: "Navajo Navaho (Diné bizaad Dinékʼehǰí)"}
+              - {value: "ny", label: "Chichewa; Chewa; Nyanja (chiCheŵa chinyanja)"}
+              - {value: "oc", label: "Occitan (Occitan)"}
+              - {value: "oj", label: "Ojibwe Ojibwa (ᐊᓂᔑᓈᐯᒧᐎᓐ)"}
+              - {value: "om", label: "Oromo (Afaan Oromoo)"}
+              - {value: "or", label: "Oriya (ଓଡ଼ିଆ)"}
+              - {value: "os", label: "Ossetian Ossetic (ирон æвзаг)"}
+              - {value: "pa", label: "Panjabi Punjabi (ਪੰਜਾਬੀ پنجابی‎)"}
+              - {value: "pi", label: "Pāli (पाऴि)"}
+              - {value: "pl", label: "Polish (polski)"}
+              - {value: "ps", label: "Pashto Pushto (پښتو)"}
+              - {value: "pt", label: "Portuguese (Português)"}
+              - {value: "qu", label: "Quechua (Runa Simi Kichwa)"}
+              - {value: "rm", label: "Romansh (rumantsch grischun)"}
+              - {value: "rn", label: "Kirundi (kiRundi)"}
+              - {value: "ro", label: "Romanian Moldavian Moldovan (română)"}
+              - {value: "ru", label: "Russian (русский язык)"}
+              - {value: "rw", label: "Kinyarwanda (Ikinyarwanda)"}
+              - {value: "sa", label: "Sanskrit (Saṁskṛta) (संस्कृतम्)"}
+              - {value: "sc", label: "Sardinian (sardu)"}
+              - {value: "sd", label: "Sindhi (सिन्धी سنڌي، سندھی‎)"}
+              - {value: "se", label: "Northern Sami (Davvisámegiella)"}
+              - {value: "sg", label: "Sango (yângâ tî sängö)"}
+              - {value: "si", label: "Sinhala Sinhalese (සිංහල)"}
+              - {value: "sk", label: "Slovak (slovenčina)"}
+              - {value: "sl", label: "Slovene (slovenščina)"}
+              - {value: "sm", label: "Samoan (gagana faa Samoa)"}
+              - {value: "sn", label: "Shona (chiShona)"}
+              - {value: "so", label: "Somali (Soomaaliga af Soomaali)"}
+              - {value: "sq", label: "Albanian (Shqip)"}
+              - {value: "sr", label: "Serbian (српски језик)"}
+              - {value: "ss", label: "Swati (SiSwati)"}
+              - {value: "st", label: "Southern Sotho (Sesotho)"}
+              - {value: "su", label: "Sundanese (Basa Sunda)"}
+              - {value: "sv", label: "Swedish (svenska)"}
+              - {value: "sw", label: "Swahili (Kiswahili)"}
+              - {value: "ta", label: "Tamil (தமிழ்)"}
+              - {value: "te", label: "Telugu (తెలుగు)"}
+              - {value: "tg", label: "Tajik (тоҷикӣ toğikī تاجیکی‎)"}
+              - {value: "th", label: "Thai (ไทย)"}
+              - {value: "ti", label: "Tigrinya (ትግርኛ)"}
+              - {value: "tk", label: "Turkmen (Türkmen Түркмен)"}
+              - {value: "tl", label: "Tagalog (Wikang Tagalog ᜏᜒᜃᜅ᜔ ᜆᜄᜎᜓᜄ᜔)"}
+              - {value: "tn", label: "Tswana (Setswana)"}
+              - {value: "to", label: "Tonga (Tonga Islands) (faka Tonga)"}
+              - {value: "tr", label: "Turkish (Türkçe)"}
+              - {value: "ts", label: "Tsonga (Xitsonga)"}
+              - {value: "tt", label: "Tatar (татарча tatarça تاتارچا‎)"}
+              - {value: "tw", label: "Twi (Twi)"}
+              - {value: "ty", label: "Tahitian (Reo Tahiti)"}
+              - {value: "ug", label: "Uighur Uyghur (Uyƣurqə ئۇيغۇرچە‎)"}
+              - {value: "uk", label: "Ukrainian (українська)"}
+              - {value: "ur", label: "Urdu (اردو)"}
+              - {value: "uz", label: "Uzbek (zbek Ўзбек أۇزبېك‎)"}
+              - {value: "ve", label: "Venda (Tshivenḓa)"}
+              - {value: "vi", label: "Vietlabelse(Tiếng Việt)"}
+              - {value: "vo", label: "Volapük (Volapük)"}
+              - {value: "wa", label: "Walloon (Walon)"}
+              - {value: "wo", label: "Wolof (Wollof)"}
+              - {value: "xh", label: "Xhosa (isiXhosa)"}
+              - {value: "yi", label: "Yiddish (ייִדיש)"}
+              - {value: "yo", label: "Yoruba (Yorùbá)"}
+              - {value: "za", label: "Zhuang Chuang (Saɯ cueŋƅ Saw cuengh)"}
+              - {value: "zh", label: "Chinese (中文 (Zhōngwén) 汉语 漢語)"}
