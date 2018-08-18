@@ -35,27 +35,39 @@ collections:
     fields: # The fields for each vid
       - {label: "Vid Title", name: "title", widget: "string", required: true}
       - {label: "Vid Creation/Publish Date", name: "date", widget: "date", required: true}
-      - {label: "Fandoms (separate multiple with a comma)", name: "footage", widget: "list", required: true}
+      - label: "Fandoms"
+        name: "fandoms"
+        widget: "list"
+        required: false
+        field:
+          - {label: "Fandom", name: fandom, widget: "string"}
       - {label: "Song Title", name: "song", widget: "string", required: true}
       - {label: "Song Artist", name: "artist", widget: "string", required: true}
       - {label: "Thumbnail", name: "thumbnail", widget: "image", default: "/static/uploads/vid_thumbnail.jpg", required: true}
       - {label: "Social Media Image", name: "social_thumbnail", widget: "image", required: false}
       - {label: "Description", name: "body", widget: "markdown"}
       - {label: "Lyrics", name: "lyrics", widget: "markdown"}
-      - {label: "Tags", name: "tags", widget: "list", required: false}
+      - label: "Tags"
+        name: "tags"
+        widget: "list"
+        required: true
+        field:
+          - {label: "Tag", name: tag, widget: "string"}
       - {label: "Collaborators", name: "collaborators", widget: "list", required: false}
       - {label: "Gift for", name: "recipient", widget: "string", required: false}
       - {label: "AO3 works ID", name: "recipient", widget: "number", required: false}
       - {label: "More Info URL", name: "recipient", widget: "number", required: false}
       - label: "Download Links"
         name: "downloads"
-        widget: "object"
+        widget: "list"
+        required: false
         fields:
           - {label: "Text", name: "label", widget: "string"}
           - {label: "Url", name: "url", widget: "string"}
       - label: "Video Stream"
         name: "video_streams"
-        widget: "object"
+        widget: "list"
+        required: false
         fields:
           - {label: "Stream Url", name: "url", widget: "string"}
           - label: "Stream Type"
@@ -66,7 +78,8 @@ collections:
       - label: "Video Tracks"
         hint: "Subtitles, captions, chapters etc."
         name: "tracks"
-        widget: "object"
+        widget: "list"
+        required: false
         fields:
           - {label: "VTT", name: "vtt", widget: "file"}
           - label: "Track Kind"
